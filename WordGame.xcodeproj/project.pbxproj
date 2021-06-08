@@ -15,6 +15,7 @@
 		608AB6E3266E4482004A65C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 608AB6E1266E4482004A65C1 /* LaunchScreen.storyboard */; };
 		608AB6EE266E4482004A65C1 /* WordGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608AB6ED266E4482004A65C1 /* WordGameTests.swift */; };
 		608AB6F9266E4482004A65C1 /* WordGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608AB6F8266E4482004A65C1 /* WordGameUITests.swift */; };
+		608AB707266E4738004A65C1 /* start.txt in Resources */ = {isa = PBXBuildFile; fileRef = 608AB706266E4738004A65C1 /* start.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		608AB6F4266E4482004A65C1 /* WordGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608AB6F8266E4482004A65C1 /* WordGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGameUITests.swift; sourceTree = "<group>"; };
 		608AB6FA266E4482004A65C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		608AB706266E4738004A65C1 /* start.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = start.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				608AB6DF266E4482004A65C1 /* Assets.xcassets */,
 				608AB6E1266E4482004A65C1 /* LaunchScreen.storyboard */,
 				608AB6E4266E4482004A65C1 /* Info.plist */,
+				608AB706266E4738004A65C1 /* start.txt */,
 			);
 			path = WordGame;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				608AB6E3266E4482004A65C1 /* LaunchScreen.storyboard in Resources */,
+				608AB707266E4738004A65C1 /* start.txt in Resources */,
 				608AB6E0266E4482004A65C1 /* Assets.xcassets in Resources */,
 				608AB6DE266E4481004A65C1 /* Main.storyboard in Resources */,
 			);

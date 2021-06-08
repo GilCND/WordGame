@@ -22,7 +22,7 @@ class ViewController: UITableViewController {
         }
         if allWords.isEmpty {
             allWords = ["fileError"]
-        }	
+        }
         startGame()
     }
     
@@ -42,7 +42,7 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    @objc private func promptForAnswer () {
+    @objc private func promptForAnswer() {
         let alertController = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
         alertController.addTextField()
         
@@ -55,11 +55,11 @@ class ViewController: UITableViewController {
         present(alertController, animated: true)
     }
     
-    private func submit (_ answer: String) {
+    private func submit(_ answer: String) {
         let lowerAnswer = answer.lowercased()
-        if isPossible(word: lowerAnswer){
-            if isOriginal(word: lowerAnswer){
-                if isReal(word: lowerAnswer){
+        if isPossible(word: lowerAnswer) {
+            if isOriginal(word: lowerAnswer) {
+                if isReal(word: lowerAnswer) {
                     if isValid(word: lowerAnswer) {
                         usedWords.insert(lowerAnswer, at: 0)
                         let indexPath = IndexPath (row: 0, section: 0)
@@ -67,17 +67,17 @@ class ViewController: UITableViewController {
                         return
                     }
                 } else {
-                    showErrorMessage (errorCode: 3)
+                    showErrorMessage(errorCode: 3)
                 }
             } else {
-                showErrorMessage (errorCode: 2)
+                showErrorMessage(errorCode: 2)
             }
         } else {
-            showErrorMessage (errorCode: 1)
+            showErrorMessage(errorCode: 1)
         }
     }
     
-    private func isPossible (word: String) -> Bool {
+    private func isPossible(word: String) -> Bool {
         guard var tempWord = title?.lowercased() else { return false }
         for letter in word {
             if let position = tempWord.firstIndex(of: letter) {
@@ -86,11 +86,11 @@ class ViewController: UITableViewController {
         return true
     }
     
-    private func isOriginal (word: String) -> Bool {
+    private func isOriginal(word: String) -> Bool {
         return !usedWords.contains(word)
     }
     
-    private func isReal (word: String) -> Bool {
+    private func isReal(word: String) -> Bool {
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
@@ -101,7 +101,7 @@ class ViewController: UITableViewController {
         }
     }
     
-    private func isValid (word: String) -> Bool {
+    private func isValid(word: String) -> Bool {
         if word.count > 2 {
             return true
         } else {

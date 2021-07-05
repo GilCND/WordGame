@@ -8,13 +8,23 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    var allWords = [String]()
-    var usedWords = [String]()
+    var allWords: [String] = []
+    var usedWords: [String] = []
+    let defaults = UserDefaults.standard
+    let wordTitle = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(startGame))
+
+        let loadLastGames = UIBarButtonItem(barButtonSystemItem: .rewind, target: self, action: #selector(loadLastGame))
+        let restartGame = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(startGame))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
+        
+        navigationItem.leftBarButtonItems = [loadLastGames, restartGame]
+        navigationController?.isToolbarHidden = false
+        
+        
+        
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let startWords = try? String(contentsOf: startWordsURL){
                 allWords = startWords.components(separatedBy: "\n")
@@ -23,13 +33,26 @@ class ViewController: UITableViewController {
         if allWords.isEmpty {
             allWords = ["fileError"]
         }
-        startGame()
+        loadLastGame()
     }
     
-   @objc private func startGame() {
+    @objc private func startGame() {
+        saveData()
         title = allWords.randomElement()
         usedWords.removeAll(keepingCapacity: true)
         tableView.reloadData()
+    }
+    @objc private func loadLastGame() {
+        loadData()
+        tableView.reloadData()
+     }
+    private func saveData() {
+        defaults.set(title, forKey: "title")
+        defaults.set(usedWords, forKey: "allWords")
+    }
+    private func loadData() {
+        title = defaults.string(forKey: "title")
+        usedWords = defaults.array(forKey: "allWords") as? [String] ?? [String]()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

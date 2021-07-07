@@ -38,7 +38,8 @@ class ViewController: UITableViewController {
     
     @objc private func startGame() {
         saveData()
-        title = allWords.randomElement()
+        guard let newTitle = allWords.randomElement() else { return }
+        title = newTitle
         usedWords.removeAll(keepingCapacity: true)
         tableView.reloadData()
     }
@@ -51,8 +52,9 @@ class ViewController: UITableViewController {
         defaults.set(usedWords, forKey: "allWords")
     }
     private func loadData() {
-        title = defaults.string(forKey: "title")
-        usedWords = defaults.array(forKey: "allWords") as? [String] ?? [String]()
+        guard let previousTitle = defaults.string(forKey: "title") else { return }
+        title = previousTitle
+        usedWords = defaults.array(forKey: "allWords") as? [String] ?? []
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,25 +81,30 @@ class ViewController: UITableViewController {
     }
     
     private func submit(_ answer: String) {
-        let lowerAnswer = answer.lowercased()
-        if isPossible(word: lowerAnswer) {
-            if isOriginal(word: lowerAnswer) {
-                if isReal(word: lowerAnswer) {
-                    if isValid(word: lowerAnswer) {
-                        usedWords.insert(lowerAnswer, at: 0)
-                        let indexPath = IndexPath (row: 0, section: 0)
-                        tableView.insertRows(at: [indexPath], with: .automatic)
-                        return
-                    }
-                } else {
-                    showErrorMessage(errorCode: 3)
-                }
-            } else {
-                showErrorMessage(errorCode: 2)
-            }
-        } else {
-            showErrorMessage(errorCode: 1)
-        }
+        let lowercasedAnswer = answer.lowercased()
+        
+        guard isPossible(word: lowercasedAnswer) else {
+               showErrorMessage(errorCode: 1)
+               return
+           }
+           
+           guard isOriginal(word: lowercasedAnswer) else {
+               showErrorMessage(errorCode: 2)
+               return
+           }
+           
+           guard isReal(word: lowercasedAnswer) else {
+               showErrorMessage(errorCode: 3)
+               return
+           }
+           
+           guard isValid(word: lowercasedAnswer) else {
+               return
+           }
+           
+           usedWords.insert(lowercasedAnswer, at: 0)
+           let indexPath = IndexPath (row: 0, section: 0)
+           tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
     private func isPossible(word: String) -> Bool {
